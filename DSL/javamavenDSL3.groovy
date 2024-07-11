@@ -1,14 +1,14 @@
-job('Java Maven App DSL 3') {
+job('Java Maven App DSL 2') {
     description('Java Maven App con DSL para el curso de Jenkins')
     scm {
-        git('https://github.com/macloujulian/simple-java-maven-app.git', 'master') { node ->
-            node / gitConfigName('macloujulian')
-            node / gitConfigEmail('macloujulian@gmail.com')
+        git('https://github.com/msanmillan/jenkins-java-maven-app.git', 'master') { node ->
+            node / gitConfigName('msanmillan')
+            node / gitConfigEmail('msanmillan@serbatic.es')
         }
     }
     triggers {
     	githubPush()
-    }    
+    }
     steps {
         maven {
           mavenInstallation('mavenjenkins')
@@ -20,13 +20,13 @@ job('Java Maven App DSL 3') {
         }
         shell('''
           echo "Entrega: Desplegando la aplicación" 
-          java -jar "/var/jenkins_home/workspace/Java Maven App DSL 3/target/my-app-1.0-SNAPSHOT.jar"
+          java -jar "/var/jenkins_home/workspace/Java Maven App DSL/target/my-app-1.0-SNAPSHOT.jar"
         ''')  
     }
     publishers {
         archiveArtifacts('target/*.jar')
         archiveJunit('target/surefire-reports/*.xml')
-	      slackNotifier {
+	slackNotifier {
             notifyAborted(true)
             notifyEveryFailure(true)
             notifyNotBuilt(false)
@@ -49,9 +49,9 @@ job('Java Maven App DSL 3') {
 job('Job test Hola Mundo') {
 	description('Aplicacion Hola Mundo de Prueba')
 	scm {
-		git('https://github.com/macloujulian/simple-java-maven-app.git', 'master') { node ->
-		    node / gitConfigName('macloujulian')
-		    node / gitConfigEmail('macloujulian@gmail.com')
+		git('https://github.com/msanmillan/jenkins-java-maven-app.git', 'master') { node ->
+		    node / gitConfigName('msanmillan')
+		    node / gitConfigEmail('msanmillan@serbatic.es')
 		}
 	}
 	triggers {
